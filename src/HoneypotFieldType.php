@@ -23,7 +23,7 @@ class HoneypotFieldType extends FieldType
 
     protected $validators = [
         'must_be_empty' => [
-            'message' => false,
+            'message' => 'fritzandandre.field_type.honeypot::message.no_bots_allowed',
             'handler' => ValidateHoneyPot::class
         ]
     ];

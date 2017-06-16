@@ -1,15 +1,7 @@
 {{ asset_add('styles.css', 'fritzandandre.field_type.honeypot::scss/honeypot.scss') }}
 
-<div
-        {{ field_type.locale ? 'lang=' ~ field_type.locale }}
-        class="
-            winnie-the-pooh
-            form-group
-            {{ form.hasErrors() ? form.hasError(field_type.input_name) ? 'has-danger' : 'has-success' }}
-            {{ field_type.input_name }}-field
-            {{ field_type.slug }}-field_type
-            {{ field_type.hidden ? 'hidden' }}
-            ">
+{# I've removed most of the classes here because I want it to be less obvious to bots that this is a honeypot field #}
+<div class="winnie-the-pooh">
 
     {% if field_type.object.label != false and field_type.config.disable_label != true %}
         <label class="control-label">

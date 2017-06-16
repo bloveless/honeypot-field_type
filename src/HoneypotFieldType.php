@@ -40,17 +40,17 @@ class HoneypotFieldType extends FieldType
     }
 
     /**
-     * The only thing that this field needs to do is remove itself from the form builder.
-     * We do this by adding it to the skips array.
+     * When the field is being saved it will both add itself to the skips array and remove itself from the builder form.
      *
      * @param FormBuilder $builder
      */
-    public function handle(FormBuilder $builder)
+    public function onFormSaving(FormBuilder $builder)
     {
         $skips = $builder->getSkips();
 
         if(!in_array($this->getField(), $skips)) {
             $skips[] = $this->getField();
+            $builder->getForm()->removeField($this->getField());
         }
 
         $builder->setSkips($skips);

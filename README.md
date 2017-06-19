@@ -1,11 +1,11 @@
 # Honeypot Field Type
+This is an extremely simple FT. It adds a field to any form that will cause the form to be invalid if any data is
+present in the field.
 
-This is an extremely simple FT. It adds a field to any form that will cause the form to be invalid if any data is present in the field.
-
-Essentially, how this works is by adding an input to the form (no column is added to the DB, just a form input) then using
-CSS that is not likely to be processed by a spam bot the field is hidden from the user. Spam bots will find the form element
-on the page and will fill out every input in the form, including the honey pot field. When the field is filled then validation
-will fail and the form will not be submitted.
+Essentially, how this works is by adding an input to the form (no column is added to the DB, just a form input) then
+using CSS that is not likely to be processed by a spam bot the field is hidden from the user. Spam bots will find the
+form element on the page and will fill out every input in the form, including the honey pot field. When the field is
+filled then validation will fail and the form will not be submitted.
 
     <div class="field-group winnie_the_poo">
         <div class="winnie-the-pooh ">
@@ -13,6 +13,10 @@ will fail and the form will not be submitted.
         <div>
         <input value="" name="winnie_the_pooh" class="form-control " type="text" placeholder="">
     </div>
+
+## Installation
+Extract the zip. Move the folder honeypot-field_type into addons/<siteref>/fritzandandre/. Now any form that you add the
+honeypot field to will become invalid if any content is entered into the input.
 
 ## Suggestion
 Some spam bots that are a little more sophisticated will recognize words like "honey pot" or "spam trap" and will not 
@@ -31,3 +35,7 @@ When I worked on the Control4 website a few years ago we read about this strateg
 spam bots. We implemented it, and our spam was cut down to almost 0, and believe me we were getting a lot of spam on
 that website before we implemented it. To their knowledge they have had no false positives as long as the honeypot field
 is not visible to actual users.
+
+## Logs
+Any submissions that are ignored will be recorded into storage/logs/honeypot_ignored_submissions.log, so no data is ever
+lost.

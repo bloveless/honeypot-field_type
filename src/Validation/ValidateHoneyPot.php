@@ -1,6 +1,8 @@
 <?php namespace Fritzandandre\HoneypotFieldType\Validation;
 
-use Fritzandandre\HoneypotFieldType\HoneypotFieldType;
+use Illuminate\Http\Request;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * Class ValidateHoneyPot
@@ -13,14 +15,20 @@ class ValidateHoneyPot
 {
     /**
      * The honey pot field is invalid if any value is submitted for it.
+     * All submissions that are ignored will be recorded into the ignored submissions log file.
      *
-     * @param HoneypotFieldType $fieldType
-     * @param null              $value
+     * @param Request $request
+     * @param null    $value
      * @return bool
      */
-    public function handle(HoneypotFieldType $fieldType, $value = null)
+    public function handle(Request $request, $value = null)
     {
-        if($value) {
+        if ($value) {
+            $logger = new Logger('Honeypot Ignored Submissions');
+            $logger->pushHandler(new StreamHandler(storage_path('logs/honeypot_ignored_submissions.log'),
+                Logger::INFO));
+            $logger->addInfo(json_encode($request->input()));
+
             return false;
         }
 
